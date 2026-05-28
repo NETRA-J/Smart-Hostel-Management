@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="app-body page-auth">
+
+<nav class="navbar navbar-dark bg-dark shadow">
+    <div class="container">
+        <span class="navbar-brand fw-bold">Smart Hostel - Student Signup</span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+            <div class="card shadow-lg">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-4">Create Student Account</h4>
+
+                    {% if error %}
+                        <div class="alert alert-danger text-center">{{ error }}</div>
+                    {% endif %}
+
+                    <form method="POST" onsubmit="return validateSignup()">
+                        <h6 class="text-uppercase text-muted">Account</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" name="full_name" id="full_name" class="form-control" placeholder="Enter full name" maxlength="50" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="Choose a username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_.]{3,20}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Create password" minlength="6" maxlength="64" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Re-enter password" minlength="6" maxlength="64" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" name="phone" id="phone" class="form-control" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email (Optional)</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="name@example.com" maxlength="100">
+                            </div>
+                        </div>
+
+                        <h6 class="text-uppercase text-muted mt-4">Personal Details</h6>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Age</label>
+                                <input type="number" name="age" id="age" class="form-control" placeholder="Auto from DOB" readonly required>
+                                <small class="text-muted">Minimum age: 18 years</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Blood Group</label>
+                                <select name="blood_group" id="blood_group" class="form-select" required>
+                                    <option value="" selected disabled>Select blood group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Caste</label>
+                                <input type="text" name="caste" id="caste" class="form-control" placeholder="Enter caste" maxlength="50" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sub Caste (Optional)</label>
+                                <input type="text" name="sub_caste" id="sub_caste" class="form-control" placeholder="Enter sub caste" maxlength="50">
+                            </div>
+                        </div>
+
+                        <h6 class="text-uppercase text-muted mt-4">Address</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">Address</label>
+                                <textarea name="address" id="address" class="form-control" rows="2" placeholder="House number, street, area" required></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">State</label>
+                                <input type="text" name="state" id="state" class="form-control" placeholder="Enter state" maxlength="60" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">City</label>
+                                <input type="text" name="city" id="city" class="form-control" placeholder="Enter city" maxlength="60" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Taluka</label>
+                                <input type="text" name="taluka" id="taluka" class="form-control" placeholder="Enter taluka" maxlength="60" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Pincode</label>
+                                <input type="text" name="pincode" id="pincode" class="form-control" placeholder="6-digit pincode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required>
+                            </div>
+                        </div>
+
+                        <h6 class="text-uppercase text-muted mt-4">Academic Details</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">College Name</label>
+                                <input type="text" name="institution_name" id="institution_name" class="form-control" placeholder="Enter college name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Course</label>
+                                <select name="academic_course" id="academic_course" class="form-select" required>
+                                    <option value="" selected disabled>Select course</option>
+                                    <option value="BCA" data-years="3">BCA (3 Years)</option>
+                                    <option value="BSc" data-years="3">BSc (3 Years)</option>
+                                    <option value="BA" data-years="3">BA (3 Years)</option>
+                                    <option value="BCom" data-years="3">BCom (3 Years)</option>
+                                    <option value="BE/BTech" data-years="4">BE/BTech (4 Years)</option>
+                                    <option value="Diploma" data-years="3">Diploma (3 Years)</option>
+                                    <option value="MCA" data-years="2">MCA (2 Years)</option>
+                                    <option value="MBA" data-years="2">MBA (2 Years)</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 d-none" id="custom_course_years_wrap">
+                                <label class="form-label">Course Duration (Years)</label>
+                                <input type="number" name="custom_course_years" id="custom_course_years" class="form-control" placeholder="Example: 4" min="1" max="8" step="1" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Year</label>
+                                <select name="academic_year" id="academic_year" class="form-select" disabled required>
+                                    <option value="" selected disabled>Select year</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Semester</label>
+                                <select name="academic_semester" id="academic_semester" class="form-select" disabled required>
+                                    <option value="" selected disabled>Select semester</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h6 class="text-uppercase text-muted mt-4">Guardian Details</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Guardian Name</label>
+                                <input type="text" name="guardian_name" id="guardian_name" class="form-control" placeholder="Guardian full name" maxlength="50" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Guardian Phone</label>
+                                <input type="tel" name="guardian_phone" id="guardian_phone" class="form-control" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required>
+                            </div>
+                        </div>
+
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" id="confirm" name="confirm" required>
+                            <label class="form-check-label" for="confirm">I confirm the details are correct.</label>
+                        </div>
+
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('auth.student_login') }}" class="text-decoration-none">&lt;- Back to Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const MIN_AGE = 18;
+const MAX_AGE = 60;
+
+function resetSelect(select, placeholder, disabled = true) {
+    select.innerHTML = `<option value="" selected disabled>${placeholder}</option>`;
+    select.disabled = disabled;
+}
+
+function calculateAge() {
+    const dob = document.getElementById("date_of_birth").value;
+    const ageInput = document.getElementById("age");
+    if (!dob) {
+        ageInput.value = "";
+        return;
+    }
+    const d = new Date(dob + "T00:00:00");
+    const t = new Date();
+    let age = t.getFullYear() - d.getFullYear();
+    const m = t.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && t.getDate() < d.getDate())) {
+        age--;
+    }
+    ageInput.value = age >= 0 ? String(age) : "";
+}
+
+function toggleOtherCourseYears() {
+    const course = document.getElementById("academic_course").value;
+    const wrap = document.getElementById("custom_course_years_wrap");
+    const input = document.getElementById("custom_course_years");
+    if (course === "Other") {
+        wrap.classList.remove("d-none");
+        input.disabled = false;
+        input.required = true;
+    } else {
+        wrap.classList.add("d-none");
+        input.disabled = true;
+        input.required = false;
+        input.value = "";
+    }
+}
+
+function selectedCourseYears() {
+    const course = document.getElementById("academic_course").value;
+    if (course === "Other") {
+        return Number(document.getElementById("custom_course_years").value);
+    }
+    const option = document.getElementById("academic_course").selectedOptions[0];
+    return option && option.dataset.years ? Number(option.dataset.years) : 0;
+}
+
+function updateYears() {
+    const year = document.getElementById("academic_year");
+    const sem = document.getElementById("academic_semester");
+    const years = selectedCourseYears();
+    resetSelect(year, "Select year");
+    resetSelect(sem, "Select semester");
+    if (!years || years < 1 || years > 8) {
+        return;
+    }
+    for (let i = 1; i <= years; i++) {
+        year.innerHTML += `<option value="${i}">${i} Year</option>`;
+    }
+    year.disabled = false;
+}
+
+function updateSemesters() {
+    const sem = document.getElementById("academic_semester");
+    const years = selectedCourseYears();
+    const year = Number(document.getElementById("academic_year").value);
+    resetSelect(sem, "Select semester");
+    if (!years || !year) {
+        return;
+    }
+    const maxSem = years * 2;
+    const start = (year - 1) * 2 + 1;
+    const end = Math.min(year * 2, maxSem);
+    for (let i = start; i <= end; i++) {
+        sem.innerHTML += `<option value="${i}">Semester ${i}</option>`;
+    }
+    sem.disabled = false;
+}
+
+function validateSignup() {
+    const nameRegex = /^[A-Za-z][A-Za-z .'-]{1,49}$/;
+    const userRegex = /^[A-Za-z0-9_.]{3,20}$/;
+    const passRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,64}$/;
+    const phoneRegex = /^[6-9]\d{9}$/;
+    const pinRegex = /^[1-9]\d{5}$/;
+    const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const locationRegex = /^[A-Za-z][A-Za-z .'-]{1,59}$/;
+
+    const fullName = document.getElementById("full_name").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+    const phoneInput = document.getElementById("phone");
+    const guardianPhoneInput = document.getElementById("guardian_phone");
+    const pincodeInput = document.getElementById("pincode");
+    const email = document.getElementById("email").value.trim();
+    const age = Number(document.getElementById("age").value);
+    const course = document.getElementById("academic_course").value;
+    const customYears = Number(document.getElementById("custom_course_years").value);
+    const guardianName = document.getElementById("guardian_name").value.trim();
+    const stateInput = document.getElementById("state");
+    const cityInput = document.getElementById("city");
+    const talukaInput = document.getElementById("taluka");
+    const state = stateInput.value.trim();
+    const city = cityInput.value.trim();
+    const taluka = talukaInput.value.trim();
+
+    const phone = phoneInput.value.replace(/\D/g, "");
+    const guardianPhone = guardianPhoneInput.value.replace(/\D/g, "");
+    const pincode = pincodeInput.value.replace(/\D/g, "");
+    phoneInput.value = phone;
+    guardianPhoneInput.value = guardianPhone;
+    pincodeInput.value = pincode;
+    stateInput.value = state;
+    cityInput.value = city;
+    talukaInput.value = taluka;
+
+    if (!nameRegex.test(fullName)) {
+        alert("Enter a valid full name");
+        return false;
+    }
+    if (!userRegex.test(username)) {
+        alert("Username must be 3-20 chars (letters, numbers, _ or .)");
+        return false;
+    }
+    if (!passRegex.test(password)) {
+        alert("Password must be 6-64 chars with letters and numbers");
+        return false;
+    }
+    if (password !== confirmPassword) {
+        alert("Password and confirm password do not match");
+        return false;
+    }
+    if (!phoneRegex.test(phone)) {
+        alert("Phone must be 10 digits and start with 6-9");
+        return false;
+    }
+    if (email && !mailRegex.test(email)) {
+        alert("Email address looks invalid");
+        return false;
+    }
+    if (!Number.isInteger(age) || age < MIN_AGE || age > MAX_AGE) {
+        alert(`Student age must be between ${MIN_AGE} and ${MAX_AGE}`);
+        return false;
+    }
+    if (!locationRegex.test(state)) {
+        alert("State must be 2-60 letters (spaces, . ' - allowed)");
+        return false;
+    }
+    if (!locationRegex.test(city)) {
+        alert("City must be 2-60 letters (spaces, . ' - allowed)");
+        return false;
+    }
+    if (!locationRegex.test(taluka)) {
+        alert("Taluka must be 2-60 letters (spaces, . ' - allowed)");
+        return false;
+    }
+    if (!pinRegex.test(pincode)) {
+        alert("Pincode must be valid 6 digits");
+        return false;
+    }
+    if (course === "Other" && (!Number.isInteger(customYears) || customYears < 1 || customYears > 8)) {
+        alert("For Other course, enter duration between 1 and 8 years");
+        return false;
+    }
+    if (!document.getElementById("academic_year").value || !document.getElementById("academic_semester").value) {
+        alert("Please select year and semester");
+        return false;
+    }
+    if (!nameRegex.test(guardianName)) {
+        alert("Enter a valid guardian name");
+        return false;
+    }
+    if (!phoneRegex.test(guardianPhone)) {
+        alert("Guardian phone must be 10 digits and start with 6-9");
+        return false;
+    }
+    if (guardianPhone === phone) {
+        alert("Guardian phone cannot be same as student phone");
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("date_of_birth").addEventListener("change", calculateAge);
+    document.getElementById("academic_course").addEventListener("change", () => {
+        toggleOtherCourseYears();
+        updateYears();
+    });
+    document.getElementById("custom_course_years").addEventListener("input", updateYears);
+    document.getElementById("academic_year").addEventListener("change", updateSemesters);
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

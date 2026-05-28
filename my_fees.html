@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Fees</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+
+<body class="app-body page-student">
+
+<div class="container mt-5" style="max-width:400px;">
+    <h4 class="mb-4 text-center">My Hostel Fees</h4>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if no_room %}
+        <div class="alert alert-warning">
+            You have not been allocated a room yet.
+            Fee details will be available after room allocation.
+        </div>
+    {% endif %}
+
+    {% if fee %}
+        <p>
+            <b>Amount:</b>
+            ₹ {{ fee['monthly_fee'] }}
+        </p>
+
+        <p>
+    <b>Status:</b>
+
+    {% if fee['status'] == 'Paid' %}
+        <span class="badge bg-success">Paid</span>
+    {% else %}
+        <span class="badge bg-warning text-dark">Pending</span>
+
+        <form action="{{ url_for('student.pay_fee') }}" method="post" class="mt-2">
+            <button type="submit" class="btn btn-primary btn-sm">
+                Pay Fees
+            </button>
+        </form>
+    {% endif %}
+</p>
+
+
+        <p>
+            <b>Paid Date:</b>
+            {{ fee['paid_date'] or '-' }}
+        </p>
+    {% else %}
+        <p class="text-muted">
+            No fee record available.
+        </p>
+    {% endif %}
+
+    <a href="{{ url_for('student.dashboard') }}" class="btn btn-link mt-3">
+        Back
+    </a>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
