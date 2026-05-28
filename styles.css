@@ -1,0 +1,233 @@
+:root {
+  --ink: #0f1a2b;
+  --slate: #5b6778;
+  --accent: #1f9e8c;
+  --accent-2: #f2b14a;
+  --bg-start: #f8fbff;
+  --bg-end: #eef3ff;
+  --card: #ffffff;
+  --border: #e5ecf5;
+  --shadow: 0 14px 30px rgba(15, 26, 43, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body.app-body {
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background-color: #f6f9ff;
+  position: relative;
+  isolation: isolate;
+}
+
+body.app-body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--bg1);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+  animation: bgCycle 10s infinite ease-in-out;
+  opacity: 1;
+}
+
+body.app-body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(248, 251, 255, 0.78), rgba(238, 243, 255, 0.78));
+  z-index: -1;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.container {
+  animation: fadeUp 0.5s ease both;
+}
+
+.navbar {
+  background: linear-gradient(120deg, #0f1a2b, #193d5a);
+}
+
+.navbar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card .card-title {
+  font-weight: 700;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(15, 26, 43, 0.12);
+}
+
+.btn {
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(15, 26, 43, 0.15);
+  filter: brightness(1.03);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #2bc4ae);
+  border: none;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #1f7a5c, #35b087);
+  border: none;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f2b14a, #f7c677);
+  border: none;
+  color: #2b1c00;
+}
+
+.btn-dark {
+  background: linear-gradient(135deg, #1a1f2b, #30384a);
+  border: none;
+}
+
+.btn-outline-light,
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-outline-dark {
+  border-width: 2px;
+}
+
+.alert {
+  border-radius: 14px;
+  border: 1px solid rgba(15, 26, 43, 0.08);
+}
+
+.table {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.table thead {
+  background: #1b2d45;
+  color: #fff;
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 0.7rem 0.9rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem rgba(31, 158, 140, 0.15);
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+}
+
+code {
+  background: rgba(15, 26, 43, 0.08);
+  padding: 0.15rem 0.45rem;
+  border-radius: 8px;
+  color: #1f3a55;
+}
+
+body.page-home {
+  --bg1: url("/static/images/bg_1.jpg");
+  --bg2: url("/static/images/bg_2.jpg");
+  --bg3: url("/static/images/bg_3.jpg");
+}
+
+body.page-admin {
+  --bg1: url("/static/images/bg_4.jpg");
+  --bg2: url("/static/images/bg_5.jpg");
+  --bg3: url("/static/images/bg_6.jpg");
+}
+
+body.page-student {
+  --bg1: url("/static/images/bg_7.jpg");
+  --bg2: url("/static/images/bg_8.jpg");
+  --bg3: url("/static/images/bg_9.jpg");
+}
+
+body.page-auth {
+  --bg1: url("/static/images/bg_10.jpg");
+  --bg2: url("/static/images/bg_11.jpg");
+  --bg3: url("/static/images/bg_12.jpg");
+}
+
+@keyframes bgCycle {
+  0%, 28% {
+    opacity: 1;
+    background-image: var(--bg1);
+  }
+  33% {
+    opacity: 0;
+  }
+  34%, 61% {
+    opacity: 1;
+    background-image: var(--bg2);
+  }
+  66% {
+    opacity: 0;
+  }
+  67%, 100% {
+    opacity: 1;
+    background-image: var(--bg3);
+}
+}
+
+.feature-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(15, 26, 43, 0.12);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
