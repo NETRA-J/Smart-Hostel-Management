@@ -1,52 +1,66 @@
 # 🏨 Smart Hostel Management System
 
-![GitHub repo size](https://img.shields.io/github/repo-size/Sumitgohel07/smart_hostel)
-![GitHub stars](https://img.shields.io/github/stars/Sumitgohel07/smart_hostel?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Sumitgohel07/smart_hostel?style=social)
-
-![PYTHON](https://img.shields.io/badge/Backend-Python-Green)
-![HTML](https://img.shields.io/badge/Frontend-HTML-orange)
-![CSS](https://img.shields.io/badge/Style-CSS-blue)
-![JavaScript](https://img.shields.io/badge/Language-JavaScript-yellow)
-![Responsive](https://img.shields.io/badge/UI-Responsive-green)
-
----
+A web-based application designed to simplify and manage hostel activities. The system helps administrators manage student records, room allocation, and other hostel-related operations through a simple and user-friendly interface.
 
 ## 📌 Project Overview
-Smart Hostel Management System is a web-based project designed to simplify hostel management tasks like student records, room allocation, and administrative operations.
 
----
+The Smart Hostel Management System aims to make hostel administration easier, faster, and more organized by reducing manual work and maintaining student and room information digitally.
 
 ## 🚀 Features
-- Student registration
-- Room allocation
-- Hostel record management
-- Clean and responsive UI
-- Easy navigation for admin
 
----
+- Student Registration
+- Room Allocation
+- Hostel Record Management
+- Student Information Management
+- Clean and Responsive User Interface
+- Easy Navigation for Administrators
 
 ## 🛠️ Tech Stack
-- HTML
-- CSS
-- JavaScript
-- Python
 
----
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Python
+- **Database:** SQLite (if used in your project)
 
-## ⚙️ Installation
+## ⚙️ Installation and Setup
 
-Clone the repository:
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Sumitgohel07/smart_hostel.git
+git clone https://github.com/NETRA-J/Smart-Hostel-Management.git
 ```
 
-Open the project folder and run the HTML file in your browser.
+### 2. Open the Project Folder
+
+```bash
+cd Smart-Hostel-Management
+```
+
+### 3. Run the Project
+
+Open the project in VS Code and follow the instructions for its Python backend and frontend files.
+
+## 🎯 Project Objectives
+
+- Simplify hostel administration.
+- Maintain student records efficiently.
+- Make room allocation easier.
+- Reduce manual paperwork.
+- Provide an easy-to-use interface for administrators.
+
+## 🔮 Future Scope
+
+- Online hostel fee payment
+- Student login and dashboard
+- Attendance management
+- Complaint management
+- Email notifications
+
+## 👩‍💻 Author
+
+**NETRA-J**
+
+GitHub: https://github.com/NETRA-J
 
 ---
 
-## 👨‍💻 Author
-**Sumit Gohel**
-
-GitHub: https://github.com/Sumitgohel07
+⭐ If you find this project useful, consider giving the repository a star!
